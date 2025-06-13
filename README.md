@@ -13,14 +13,4 @@ Your Complete Food &amp; Health Companion
 - 💡 Easy navigation with a central homepage (`Recette.html`) and menu pages.
 
 ## 📁 Project Structure
-Recette/
-│
-├── Recette.html # Homepage
-├── Recette1.html # Alternative layout
-├── Portfolio*.html # Design templates
-├── RecetteFrench.html # French recipes
-├── RecetteTelugu.html # Telugu version
-├── *.html # Individual recipe pages
-├── *.js # JavaScript for interactivity
-├── *.css # Styling files
-└── Favicon.png # Site icon
+The main page is found in Recette1.html
