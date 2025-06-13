@@ -47,4 +47,4 @@ The main page is found in Recette1.html
 
 ## 🔗 GitHub Repository
 
-[Click here to view the project on GitHub](https://github.com/Manaswinisaroja/HMS)
+[Click here to view the project on GitHub](https://github.com/Manaswinisaroja/Recette)
