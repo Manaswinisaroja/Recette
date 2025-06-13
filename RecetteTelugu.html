@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>రెసెట్ - మీ పూర్తి ఆహార & ఆరోగ్య సహచరుడు</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="Recette1.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🍽️ రెసెట్</div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="#recipes">రెసిపీలు</a></li>
+                    <li><a href="#calculator">ఆరోగ్య సాధనాలు</a></li>
+                    <li><a href="#planner">ఆహార ప్రణాళిక</a></li>
+                    <li><a href="#nutrition">పోషకాహారం</a></li>
+                </ul>
+            </nav>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="రెసిపీలు వెతకండి..." id="searchInput">
+                <button class="search-btn" onclick="searchRecipes()">🔍</button>
+            </div>
+            <div class="language-buttons">
+        <a href="Recette1.html" class="lang-btn">English</a>
+        <a href="RecetteFrench.html" class="lang-btn">Français</a>
+        <a href="RecetteJapnese.html" class="lang-btn">日本語</a>
+        <a href="RecetteTelugu.html" class="lang-btn">Telugu</a>
+        <a href="RecetteSpanish.html" class="lang-btn">Español</a>
+    </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="feature-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('recipes')">🍳 రెసిపీలు</button>
+                <button class="tab-btn" onclick="showTab('calculator')">📊 కేలరీ కాలిక్యులేటర్</button>
+                <button class="tab-btn" onclick="showTab('planner')">📅 ఆహార ప్రణాళిక</button>
+                <button class="tab-btn" onclick="showTab('water')">💧 నీటి ట్రాకర్</button>
+                <button class="tab-btn" onclick="showTab('shopping')">🛒 షాపింగ్ లిస్ట్</button>
+                <button class="tab-btn" onclick="showTab('nutrition')">🥗 పోషకాహార సమాచారం</button>
+            </div>
+
+
+            <!-- Calorie Calculator Tab -->
+            <div id="calculator" class="tab-content">
+                <h2>📊 ఆరోగ్య & ఫిట్నెస్ కాలిక్యులేటర్</h2>
+                <div class="calculator-container">
+                    <div class="calc-section">
+                        <h3>🔥 రోజువారీ కేలరీల అవసరాలు</h3>
+                        <div class="form-group">
+                            <label>వయస్సు:</label>
+                            <input type="number" id="age" placeholder="మీ వయస్సు నమోదు చేయండి">
+                        </div>
+                        <div class="form-group">
+                            <label>లింగం:</label>
+                            <select id="gender">
+                                <option value="male">పురుషుడు</option>
+                                <option value="female">స్త్రీ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>భారం (కిలోలు):</label>
+                            <input type="number" id="weight" placeholder="భారం నమోదు చేయండి">
+                        </div>
+                        <div class="form-group">
+                            <label>ఎత్తు (సెం.మీ):</label>
+                            <input type="number" id="height" placeholder="ఎత్తు నమోదు చేయండి">
+                        </div>
+                        <div class="form-group">
+                            <label>ఆక్టివిటీ స్థాయి:</label>
+                            <select id="activity">
+                                <option value="1.2">సాధారణ</option>
+                                <option value="1.375">తేలికపాటి కార్యకలాపాలు</option>
+                                <option value="1.55">మధ్యస్థ కార్యకలాపాలు</option>
+                                <option value="1.725">చురుకైన కార్యకలాపాలు</option>
+                                <option value="1.9">అత్యంత చురుకైన కార్యకలాపాలు</option>
+                            </select>
+                        </div>
+                        <button class="calc-btn" onclick="calculateCalories()">కేలరీలు లెక్కించండి</button>
+                        <div id="calorieResult" class="result"></div>
+                    </div>
+
+                    <div class="calc-section">
+                        <h3>📏 BMI కాలిక్యులేటర్</h3>
+                        <div class="form-group">
+                            <label>భారం (కిలోలు):</label>
+                            <input type="number" id="bmiWeight" placeholder="భారం నమోదు చేయండి">
+                        </div>
+                        <div class="form-group">
+                            <label>ఎత్తు (సెం.మీ):</label>
+                            <input type="number" id="bmiHeight" placeholder="ఎత్తు నమోదు చేయండి">
+                        </div>
+                        <button class="calc-btn" onclick="calculateBMI()">BMI లెక్కించండి</button>
+                        <div id="bmiResult" class="result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meal Planner Tab -->
+            <div id="planner" class="tab-content">
+                <h2>📅 వారపు ఆహార ప్రణాళిక</h2>
+                <div class="meal-planner">
+                    <div class="day-card">
+                        <h3>సోమవారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="monday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="monday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="monday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>మంగళవారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="tuesday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="tuesday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="tuesday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>బుధవారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="wednesday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="wednesday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="wednesday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>గురువారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="thursday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="thursday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="thursday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>శుక్రవారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="friday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="friday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="friday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>శనివారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="saturday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="saturday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="saturday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>ఆదివారం</h3>
+                        <input type="text" class="meal-input" placeholder="ఉదయం టిఫిన్" data-day="sunday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="మధ్యాహ్న భోజనం" data-day="sunday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="రాత్రి భోజనం" data-day="sunday" data-meal="dinner">
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="calc-btn" onclick="saveMealPlan()" style="display: inline-block; width: auto;">ఆహార ప్రణాళికను సేవ్ చేయండి</button>
+                    <button class="calc-btn" onclick="clearMealPlan()" style="display: inline-block; width: auto; margin-left: 1rem;">అన్నీ క్లియర్ చేయండి</button>
+                </div>
+            </div>
+
+            <!-- Water Tracker Tab -->
+            <div id="water" class="tab-content">
+                <h2>💧 రోజువారీ నీటి తీసుకోవడం</h2>
+                <div class="water-tracker">
+                    <div class="water-visual">
+                        <div class="water-level" id="waterLevel"></div>
+                    </div>
+                    <h3 id="waterAmount">0 / 2000 ml</h3>
+                    <p>రోజువారీ లక్ష్యం: 2000ml (8 గ్లాసులు)</p>
+                    <div class="water-controls">
+                        <button class="water-btn" onclick="addWater(250)">+ 250ml గ్లాసు</button>
+                        <button class="water-btn" onclick="addWater(500)">+ 500ml సీసా</button>
+                        <button class="water-btn" onclick="resetWater()">మళ్లీ ప్రారంభించు</button>
+                    </div>
+                    <div id="waterProgress" class="result" style="background: rgba(33, 150, 243, 0.2); color: #1976D2;"></div>
+                </div>
+            </div>
+
+            <!-- Shopping List Tab -->
+            <div id="shopping" class="tab-content">
+                <h2>🛒 పోషకాహార షాపింగ్ లిస్ట్</h2>
+                <div style="margin-bottom: 2rem;">
+                    <input type="text" id="shoppingInput" placeholder="షాపింగ్ లిస్ట్‌కి అంశాన్ని జోడించండి..." style="padding: 1rem; border: 2px solid #ddd; border-radius: 10px; width: 70%; margin-right: 1rem;">
+                    <button onclick="addShoppingItem()" style="padding: 1rem 2rem; background: #4CAF50; color: white; border: none; border-radius: 10px; cursor: pointer;">అంశాన్ని జోడించండి</button>
+                </div>
+                <div class="shopping-list" id="shoppingList">
+                    <!-- Pre-populated healthy shopping items -->
+                </div>
+            </div>
+
+            <!-- Nutrition Info Tab -->
+            <div id="nutrition" class="tab-content">
+                <h2>🥗 విటమిన్లు & ఖనిజాల సమాచారం</h2>
+                <div class="nutrition-grid">
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🍊</div>
+                        <h3>విటమిన్ సి</h3>
+                        <p>రోగనిరోధక వ్యవస్థ, కొలాజన్ సంశ్లేషణ మరియు యాంటీఆక్సిడెంట్ రక్షణకు అవసరం.</p>
+                        <strong>మూలాలు:</strong> సిట్రస్ పండ్లు, బెర్రీలు, బెల్ పెప్పర్స్, బ్రోకలీ
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥛</div>
+                        <h3>కాల్షియం</h3>
+                        <p>ఎముకల ఆరోగ్యం, కండరాల పనితీరు మరియు నరాల ప్రసారానికి కీలకం.</p>
+                        <strong>మూలాలు:</strong> పాల ఉత్పత్తులు, ఆకుకూరలు, బాదం పప్పు, సార్డిన్స్
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥩</div>
+                        <h3>ఇనుము</h3>
+                        <p>ఆక్సిజన్ రవాణా మరియు శక్తి ఉత్పత్తికి అవసరం.</p>
+                        <strong>మూలాలు:</strong> ఎరుపు మాంసం, పాలకూర, బియ్యం, డార్క్ చాక్లెట్
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🌞</div>
+                        <h3>విటమిన్ డి</h3>
+                        <p>ఎముకల ఆరోగ్యం మరియు రోగనిరోధక పనితీరుకు ముఖ్యమైనది.</p>
+                        <strong>మూలాలు:</strong> సూర్యకాంతి, కొవ్వు చేపలు, ఫోర్టిఫైడ్ ఆహారాలు, గుడ్డు పచ్చసొన
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🍌</div>
+                        <h3>పొటాషియం</h3>
+                        <p>రక్తపోటును నియంత్రిస్తుంది మరియు గుండె ఆరోగ్యానికి మద్దతు ఇస్తుంది.</p>
+                        <strong>మూలాలు:</strong> అరటిపండ్లు, ఆవకాడోలు, బంగాళదుంపలు, బీన్స్
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥜</div>
+                        <h3>మెగ్నీషియం</h3>
+                        <p>కండరాలు మరియు నరాల పనితీరుకు మద్దతు ఇస్తుంది, రక్తంలో చక్కరను నియంత్రిస్తుంది.</p>
+                        <strong>మూలాలు:</strong> గింజలు, గింజలు, సంపూర్ణ ధాన్యాలు, చీకటి ఆకుకూరలు
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- వంటకాల విభాగం -->
+    <div id="recipes" class="tab-content active">
+        <h2>🌟 ప్రత్యేక వంటకాలు</h2>
+        <div class="recipe-grid" id="recipeGrid">
+            <div id="MainBody">
+                <!-- ప్రధాన వంటకాలు -->
+                <div id="maincourse">
+                    <h3>ప్రధాన వంటకాలు</h3>
+                    <div class="dish1 rec">
+                        <a href="ButterChicken.html">
+                            <img src="https://falasteenifoodie.com/wp-content/uploads/2023/01/Butter-Chicken-Recipe-1536x1293.jpeg" 
+                                 alt="బటర్ చికెన్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ButterChicken.html">బటర్ చికెన్</a>
+                    </div>
+                    <div class="dish1 rec">
+                        <a href="PannerTikkaMasala.html">
+                            <img src="https://i0.wp.com/cookingfromheart.com/wp-content/uploads/2017/03/Paneer-Tikka-Masala-4.jpg?fit=1024%2C683&ssl=1" 
+                                 alt="పన్నీర్ టిక్కా మసాలా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="PannerTikkaMasala.html">పన్నీర్ టిక్కా మసాలా</a>
+                    </div>
+                    <div class="dish1">
+                        <a href="LentilCurry.html">
+                            <img src="https://lovingitvegan.com/wp-content/uploads/2019/01/Vegan-Lentil-Curry-11.jpg" 
+                                 alt="పప్పు కూర" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="LentilCurry.html">పప్పు కూర</a>
+                    </div>
+                    <div class="dish1">
+                        <a href="ChickPeaMasala.html">
+                            <img src="https://silkroadrecipes.com/wp-content/uploads/2020/07/Chickpea-Masala-square.jpg" 
+                                 alt="శనగలు మసాలా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ChickPeaMasala.html">శనగలు మసాలా</a>
+                    </div>
+                    <div class="dish1"> 
+                        <a href="RoganJosh.html">
+                            <img src="https://www.chewoutloud.com/wp-content/uploads/2022/08/Rogan-Josh-Vertical.jpg" 
+                                 alt="రోగన్ జోష్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="RoganJosh.html">రోగన్ జోష్</a>
+                    </div>
+                    <div class="dish1">
+                        <a href="VegetableKorma.html">
+                            <img src="https://mydaintykitchen.com/wp-content/uploads/2020/04/veg-korma.jpg"
+                                 alt="కూరగాయల కోర్మా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="VegetableKorma.html">కూరగాయల కోర్మా</a>
+                    </div>
+                </div>
+
+                <!-- బిర్యానీలు -->
+                <div id="biryani">
+                    <h3>బిర్యానీలు</h3>    
+                    <div class="dish2">
+                        <a href="HyderabadiChickenBiryani.html">
+                            <img src="https://yezzy4.com/wp-content/uploads/2023/02/Hyderabadi-chicken-Biryani.jpg"
+                                 alt="హైదరాబాదీ చికెన్ బిర్యానీ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="HyderabadiChickenBiryani.html">హైదరాబాదీ చికెన్ బిర్యానీ</a>
+                    </div>
+                    <div class="dish2">
+                        <a href="VegetableBiryani.html">
+                            <img src="https://www.dwarakaorganic.com/wp-content/uploads/2012/06/Veg-Biryani-Recipe.jpg"
+                                 alt="కూరగాయల బిర్యానీ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="VegetableBiryani.html">కూరగాయల బిర్యానీ</a>
+                    </div>
+                    <div class="dish2">
+                        <a href="MuttonBiryani.html">
+                            <img src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/MuttonBiryani.webp"
+                                 alt="మటన్ బిర్యానీ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="MuttonBiryani.html">మటన్ బిర్యానీ</a>
+                    </div>
+                </div>
+
+                <!-- పాస్తా -->
+                <div id="Pasta">
+                    <h3>పాస్తా</h3>
+                    <div class="dish3">
+                        <a href="ClassicAlfredoPasta.html">
+                            <img src="https://www.cookingclassy.com/wp-content/uploads/2019/09/alfredo-sauce-15.jpg"
+                                 alt="క్లాసిక్ ఆల్ఫ్రెడో పాస్తా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ClassicAlfredoPasta.html">క్లాసిక్ ఆల్ఫ్రెడో పాస్తా</a>
+                    </div>
+                    <div class="dish3">
+                        <a href="PestoPasta.html">
+                            <img src="https://www.nourishandtempt.com/wp-content/uploads/2022/04/357B765F-F3DC-47E7-AEA2-58A1398F1419-scaled.jpg"
+                                 alt="పెస్తో పాస్తా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="PestoPasta.html">పెస్తో పాస్తా</a>
+                    </div>
+                    <div class="dish3">
+                        <a href="CarbonaraPasta.html">
+                            <img src="https://www.savoryexperiments.com/wp-content/uploads/2019/01/Carbonara-3.jpg"
+                                 alt="కార్బొనారా పాస్తా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CarbonaraPasta.html">కార్బొనారా పాస్తా</a>
+                    </div>
+                </div>
+
+                <!-- సలాడ్స్ -->
+                <div id="Salad">
+                    <h3>సలాడ్స్</h3>
+                    <div class="dish4">
+                        <a href="FruitSalad.html">
+                            <img src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_1460/k/Photo/Series/2019-06-snapshot-cooking-5-ingredient-fruit-salads/Snapshot_5-Ingredient-Fruit-Salads_melon_71005"
+                                 alt="పండ్ల సలాడ్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="FruitSalad.html">పండ్ల సలాడ్</a>
+                    </div>
+                    <div class="dish4">
+                        <a href="GreekSalad.html">
+                            <img src="https://www.aheadofthyme.com/wp-content/uploads/2016/03/the-perfect-greek-salad-7.jpg"
+                                 alt="గ్రీక్ సలాడ్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GreekSalad.html">గ్రీక్ సలాడ్</a>
+                    </div>
+                    <div class="dish4">
+                        <a href="QuinoaSalad.html">
+                            <img src="https://www.herwholesomekitchen.com/wp-content/uploads/2022/05/mediterranean-quinoa-salad-2.jpg"
+                                 alt="క్వినోవా సలాడ్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="QuinoaSalad.html">క్వినోవా సలాడ్</a>
+                    </div>
+                </div>
+
+                <!-- అల్పాహారం -->
+                <div id="Breakfast">
+                    <h3>అల్పాహారం</h3> 
+                    <div class="dish5">
+                        <a href="BananaOatmealPancakes.html">
+                            <img src="https://allthehealthythings.com/wp-content/uploads/2021/01/banana-oatmeal-pancakes-5.jpg"
+                                 alt="అరటి ఓట్స్ పాన్కేక్స్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="BananaOatmealPancakes.html">అరటి ఓట్స్ పాన్కేక్స్</a>
+                    </div> 
+                    <div class="dish5">
+                        <a href="Poha.html">
+                            <img src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"
+                                 alt="పోహా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="Poha.html">పోహా</a>
+                    </div>
+                    <div class="dish5">
+                        <a href="IdliwithCoconutChutney.html">
+                            <img src="https://madhurasrecipe.com/wp-content/uploads/2023/11/Winter-Idli-2.jpg"
+                                 alt="కొబ్బరి చట్నీతో ఇడ్లీ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="IdliwithCoconutChutney.html">కొబ్బరి చట్నీతో ఇడ్లీ</a>
+                    </div>
+                </div>
+
+                <!-- మాక్టెయిల్స్ -->
+                <div id="Mocktail">
+                    <h3>మాక్టెయిల్స్</h3>
+                    <div class="dish6">
+                        <a href="WatermelonBasilFizz.html">
+                            <img src="https://bitsandbitesblog.com/wp-content/uploads/2023/05/cropped-watermelon-basil-cocktail-2-of-4.jpg"
+                                 alt="పుచ్చకాయ తులసి ఫిజ్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="WatermelonBasilFizz.html">పుచ్చకాయ తులసి ఫిజ్</a>
+                    </div>
+                    <div class="dish6">
+                        <a href="">
+                            <img src="https://therecipecritic.com/wp-content/uploads/2023/01/mangolassi-750x1000.jpg"
+                                 alt="మామిడి లస్సీ మాక్టెయిల్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">మామిడి లస్సీ మాక్టెయిల్</a>
+                    </div>
+                    <div class="dish6">
+                        <a href="">
+                            <img src="https://ohsodelicioso.com/wp-content/uploads/2015/04/limespritzer-6-300x300.jpg"
+                                 alt="కొబ్బరి నిమ్మకాయ స్ప్రిట్జర్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">కొబ్బరి నిమ్మకాయ స్ప్రిట్జర్</a>
+                    </div>
+                </div>
+
+                <!-- పిజ్జా -->
+                <div id="Pizza">
+                    <h3>పిజ్జా</h3>
+                    <div class="dish7">
+                        <a href="">
+                            <img src="https://images.eatsmarter.com/sites/default/files/styles/920x690/public/classic-margherita-pizza-493177.jpg"
+                                 alt="క్లాసిక్ మార్గరీటా పిజ్జా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">క్లాసిక్ మార్గరీటా పిజ్జా</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="">
+                            <img src="https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/corn.f8baa08ad7f607f1de30f96bb9245b50.1.jpg"
+                                 alt="మొక్కజొన్న పన్నీర్ పిజ్జా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">మొక్కజొన్న పన్నీర్ పిజ్జా</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="">
+                            <img src="https://www.acouplecooks.com/wp-content/uploads/2019/06/Mushroom-Pizza-with-Herbs-001-800x1199.jpg"
+                                 alt="చీజీ మష్రూమ్ పిజ్జా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">చీజీ మష్రూమ్ పిజ్జా</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="">
+                            <img src="http://therollingstorm.com/wp-content/uploads/2015/03/IMG_4321.jpg"
+                                 alt="తందూరీ చికెన్ పిజ్జా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">తందూరీ చికెన్ పిజ్జా</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="">
+                            <img src="https://www.mysugarfreekitchen.com/wp-content/uploads/2023/03/garlic-prawn-pizza-new-1.jpg"
+                                 alt="వెల్లుల్లి వెన్న రొయ్యల పిజ్జా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">వెల్లుల్లి వెన్న రొయ్యల పిజ్జా</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="">
+                            <img src="https://www.tastingtable.com/img/gallery/should-you-precook-sausage-before-putting-it-on-pizza/l-intro-1663772855.jpg"
+                                 alt="మీట్ ఫీస్ట్ పిజ్జా" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">మీట్ ఫీస్ట్ పిజ్జా</a>
+                    </div>
+                </div>
+
+                <!-- డెజర్ట్స్ -->
+                <div id="Dessert">
+                    <h3>డెజర్ట్స్</h3>
+                    <div class="dish8">
+                        <a href="">
+                            <img src="https://damnspicy.com/wp-content/uploads/2020/08/chocolate-lava-cakes-for-two-12-scaled.jpg"
+                                 alt="చాక్లెట్ లావా కేక్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">చాక్లెట్ లావా కేక్</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="">
+                            <img src="https://sweetandsavorymeals.com/wp-content/uploads/2019/04/Strawberry-Cheesecake-Recipe-4.jpg"
+                                 alt="స్ట్రాబెర్రీ చీజ్కేక్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">స్ట్రాబెర్రీ చీజ్కేక్</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="">
+                            <img src="https://preppykitchen.com/wp-content/uploads/2019/03/banana-bread-Feature-preppy-kitchen.jpg"
+                                 alt="అరటి బ్రెడ్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">అరటి బ్రెడ్</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="">
+                            <img src="https://images.lacucinaitaliana.it/wp-content/uploads/2018/02/22111628/cre%CC%80me-caramel.jpg"
+                                 alt="క్రీమ్ కారామెల్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">క్రీమ్ కారామెల్</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="">
+                            <img src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Chocolate-Peanut-Butter-Crispy-Bars_EXPS_HCCBZ20_189539_E05_08_4b-4.jpg"
+                                 alt="చాక్లెట్ వేరుశనగ వెన్న బార్స్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">చాక్లెట్ వేరుశనగ వెన్న బార్స్</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="">
+                            <img src="https://i.shgcdn.com/0c5d8e10-96a1-4043-94e1-ccca934ac6fc/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+                                 alt="తిరామిసు" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">తిరామిసు</a>
+                    </div>
+                </div>
+
+                <!-- మెక్సికన్ -->
+                <div id="Mexican">
+                    <h3>మెక్సికన్</h3>
+                    <div class="dish9">
+                        <a href="">
+                            <img src="https://www.wellplated.com/wp-content/uploads/2018/01/Pressure-Cooker-Mexican-Chicken.jpg"
+                                 alt="చికెన్ టాకోస్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">చికెన్ టాకోస్</a>
+                    </div>
+                    <div class="dish9">
+                        <a href="">
+                            <img src="https://img.freepik.com/premium-photo/spicy-chipotle-chicken-tamales_1036998-81028.jpg"
+                                 alt="కారం చికెన్ టమాలేస్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">కారం చికెన్ టమాలేス్</a>
+                    </div>
+                    <div class="dish9">
+                        <a href="">
+                            <img src="https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1200.jpg"
+                                 alt="క్వెసాడిల్లాస్" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="">క్వెసాడిల్లాస్</a>
+                    </div>
+                </div>
+            </div> <!--మెయిన్ బాడీ ముగింపు-->
+        </div>
+    </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 రెసెట్ - మీ పూర్తి ఆహార & ఆరోగ్య సహచరుడు</p>
+        <p>ఆరోగ్యంగా ఉండండి, మంచిగా తినండి! 🌟</p>
+    </footer>
+<script src="Recette1.js"></script> 
+        </body></html>

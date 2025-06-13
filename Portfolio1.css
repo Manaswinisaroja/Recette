@@ -1,0 +1,99 @@
+/* Base reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: white;
+  color: #333;
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+  color: #8d85ff;
+}
+
+/* Navigation */
+header {
+  background: white;
+  color: #333;
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: 2px solid #8d85ff;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+nav h1 {
+  font-size: 1.5rem;
+  color: #8d85ff;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+nav a {
+  font-weight: bold;
+}
+nav a:hover {
+  color: #333;
+}
+
+/* Hero */
+.hero h2 {
+  font-size: 2.5rem;
+}
+.hero span {
+  color: #8d85ff;
+}
+.hero .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: #8d85ff;
+  color: white;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+.hero .btn:hover {
+  background: #6f68ff;
+}
+
+/* Sections */
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+#projects .project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  width: 250px;
+  border-radius: 10px;
+  border: 2px solid #8d85ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 15px rgba(141, 133, 255, 0.3);
+}
+
+/* Footer */
+footer {
+  background: #8d85ff;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}

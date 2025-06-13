@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recette - Your Complete Food & Health Companion</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="Recette1.css">
+    <link rel="icon" type="image/x-icon" href="Favicon.png">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🍽️ Recette</div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="#recipes">Recipes</a></li>
+                    <li><a href="#calculator">Health Tools</a></li>
+                    <li><a href="#planner">Meal Plan</a></li>
+                    <li><a href="#nutrition">Nutrition</a></li>
+                </ul>
+            </nav>
+            <div class="search-container">
+                <input type="text" class="search-input" onkeyup="search_recipe()" placeholder="Search recipes..." id="searchInput">
+                <button class="search-btn" onclick="searchRecipes()">🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="feature-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('recipes')">🍳 Recipes</button>
+                <button class="tab-btn" onclick="showTab('calculator')">📊 Calorie Calculator</button>
+                <button class="tab-btn" onclick="showTab('planner')">📅 Meal Planner</button>
+                <button class="tab-btn" onclick="showTab('water')">💧 Water Tracker</button>
+                <button class="tab-btn" onclick="showTab('shopping')">🛒 Shopping List</button>
+                <button class="tab-btn" onclick="showTab('nutrition')">🥗 Nutrition Info</button>
+                <button class="tab-btn" onclick="window.open('India1.html')">India</button>
+                 
+        <a href="Recette1.html" class="lang-btn">English</a>
+        <a href="RecetteFrench.html" class="lang-btn">Français</a>
+        <a href="RecetteJapnese.html" class="lang-btn">日本語</a>
+        <a href="RecetteTelugu.html" class="lang-btn">Telugu</a>
+        <a href="RecetteSpanish.html" class="lang-btn">Español</a>
+   
+            </div>
+
+            <!-- Calorie Calculator Tab -->
+            <div id="calculator" class="tab-content">
+                <h2>📊 Health & Fitness Calculator</h2>
+                <br>
+                <div class="calculator-container">
+                    <div class="calc-section">
+                        <h3>🔥 Daily Calorie Needs</h3>
+                        <div class="form-group">
+                            <label>Age:</label>
+                            <input type="number" id="age" placeholder="Enter your age">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender:</label>
+                            <select id="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Weight (kg):</label>
+                            <input type="number" id="weight" placeholder="Enter weight">
+                        </div>
+                        <div class="form-group">
+                            <label>Height (cm):</label>
+                            <input type="number" id="height" placeholder="Enter height">
+                        </div>
+                        <div class="form-group">
+                            <label>Activity Level:</label>
+                            <select id="activity">
+                                <option value="1.2">Sedentary</option>
+                                <option value="1.375">Light Activity</option>
+                                <option value="1.55">Moderate Activity</option>
+                                <option value="1.725">Very Active</option>
+                                <option value="1.9">Extremely Active</option>
+                            </select>
+                        </div>
+                        <button class="calc-btn" onclick="calculateCalories()">Calculate Calories</button>
+                        <div id="calorieResult" class="result"></div>
+                    </div>
+
+                    <div class="calc-section">
+                        <h3>📏 BMI Calculator</h3>
+                        <div class="form-group">
+                            <label>Weight (kg):</label>
+                            <input type="number" id="bmiWeight" placeholder="Enter weight">
+                        </div>
+                        <div class="form-group">
+                            <label>Height (cm):</label>
+                            <input type="number" id="bmiHeight" placeholder="Enter height">
+                        </div>
+                        <button class="calc-btn" onclick="calculateBMI()">Calculate BMI</button>
+                        <div id="bmiResult" class="result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meal Planner Tab -->
+            <div id="planner" class="tab-content">
+                <h2>📅 Weekly Meal Planner</h2>
+                <br>
+                <div class="meal-planner">
+                    <div class="day-card">
+                        <h3>Monday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="monday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="monday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="monday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>Tuesday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="tuesday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="tuesday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="tuesday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>Wednesday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="wednesday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="wednesday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="wednesday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>Thursday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="thursday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="thursday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="thursday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>Friday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="friday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="friday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="friday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>Saturday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="saturday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="saturday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="saturday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>Sunday</h3>
+                        <input type="text" class="meal-input" placeholder="Breakfast" data-day="sunday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="Lunch" data-day="sunday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="Dinner" data-day="sunday" data-meal="dinner">
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="calc-btn" onclick="saveMealPlan()" style="display: inline-block; width: auto;">Save Meal Plan</button>
+                    <button class="calc-btn" onclick="clearMealPlan()" style="display: inline-block; width: auto; margin-left: 1rem;">Clear All</button>
+                </div>
+            </div>
+
+            <!-- Water Tracker Tab -->
+            <div id="water" class="tab-content">
+                <h2>💧 Daily Water Intake Tracker</h2>
+                <div class="water-tracker">
+                    <div class="water-visual">
+                        <div class="water-level" id="waterLevel"></div>
+                    </div>
+                    <h3 id="waterAmount">0 / 2000 ml</h3>
+                    <p>Daily Goal: 2000ml (8 glasses)</p>
+                    <div class="water-controls">
+                        <button class="water-btn" onclick="addWater(250)">+ 250ml Glass</button>
+                        <button class="water-btn" onclick="addWater(500)">+ 500ml Bottle</button>
+                        <button class="water-btn" onclick="resetWater()">Reset</button>
+                    </div>
+                    <div id="waterProgress" class="result" style="background: rgba(33, 150, 243, 0.2); color: #1976D2;"></div>
+                </div>
+            </div>
+
+            <!-- Shopping List Tab -->
+            <div id="shopping" class="tab-content">
+                <h2>🛒 Nutrition Food Shopping List</h2>
+                <br>
+                <div style="margin-bottom: 2rem;">
+                    <input type="text" id="shoppingInput" placeholder="Add item to shopping list..." style="padding: 1rem; border: 2px solid #ddd; border-radius: 10px; width: 70%; margin-right: 1rem;">
+                    <button onclick="addShoppingItem()" style="padding: 1rem 2rem; background: #764ba2; color: white; border: none; border-radius: 10px; cursor: pointer;">Add Item</button>
+                </div>
+                <div class="shopping-list" id="shoppingList">
+                    <!-- Pre-populated healthy shopping items -->
+                </div>
+            </div>
+
+            <!-- Nutrition Info Tab -->
+            <div id="nutrition" class="tab-content">
+                <h2>🥗 Vitamins & Minerals Information</h2>
+                <br>
+                <div class="nutrition-grid">
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🍊</div>
+                        <h3>Vitamin C</h3>
+                        <p>Essential for immune system, collagen synthesis, and antioxidant protection.</p>
+                        <strong>Sources:</strong> Citrus fruits, berries, bell peppers, broccoli
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥛</div>
+                        <h3>Calcium</h3>
+                        <p>Crucial for bone health, muscle function, and nerve transmission.</p>
+                        <strong>Sources:</strong> Dairy products, leafy greens, almonds, sardines
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥩</div>
+                        <h3>Iron</h3>
+                        <p>Essential for oxygen transport and energy production.</p>
+                        <strong>Sources:</strong> Red meat, spinach, lentils, dark chocolate
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🌞</div>
+                        <h3>Vitamin D</h3>
+                        <p>Important for bone health and immune function.</p>
+                        <strong>Sources:</strong> Sunlight, fatty fish, fortified foods, egg yolks
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🍌</div>
+                        <h3>Potassium</h3>
+                        <p>Regulates blood pressure and supports heart health.</p>
+                        <strong>Sources:</strong> Bananas, avocados, potatoes, beans
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥜</div>
+                        <h3>Magnesium</h3>
+                        <p>Supports muscle and nerve function, blood sugar control.</p>
+                        <strong>Sources:</strong> Nuts, seeds, whole grains, dark leafy greens
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Recipes Tab -->
+            <div id="recipes" class="tab-content active">
+                <h2>🌟 Featured Recipes</h2>
+                <div class="recipe-grid" id="recipeGrid">
+        <div id="MainBody">
+                <!--Main Course-->
+                <div id="maincourse">
+                    <h3>Main Course</h3>
+                <div class="dish1 rec">
+                    <a href="ButterChicken.html">
+                        <img src="https://falasteenifoodie.com/wp-content/uploads/2023/01/Butter-Chicken-Recipe-1536x1293.jpeg" 
+                             alt="Butter Chicken" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="ButterChicken.html">Butter Chicken</a>
+                </div>
+                <div class="dish1 rec">
+                    <a href="PannerTikkaMasala.html">
+                        <img src="https://i0.wp.com/cookingfromheart.com/wp-content/uploads/2017/03/Paneer-Tikka-Masala-4.jpg?fit=1024%2C683&ssl=1" 
+                             alt="Paneer Tikka Masala" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="PannerTikkaMasala.html">Paneer Tikka Masala</a>
+                </div>
+                <div class="dish1">
+                    <a href="LentilCurry.html">
+                        <img src="https://lovingitvegan.com/wp-content/uploads/2019/01/Vegan-Lentil-Curry-11.jpg" 
+                             alt="Lentil Curry" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="LentilCurry.html">Lentil Curry</a>
+                </div>
+                <div class="dish1">
+                    <a href="ChickPeaMasala.html">
+                        <img src="https://silkroadrecipes.com/wp-content/uploads/2020/07/Chickpea-Masala-square.jpg" 
+                             alt="Chickpea Masala" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="ChickPeaMasala.html">Chickpea Masala</a>
+                </div>
+                <div class="dish1">
+                    <a href="VegetableKorma.html">
+                        <img src="https://mydaintykitchen.com/wp-content/uploads/2020/04/veg-korma.jpg"
+                             alt="Vegetable Korma" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="VegetableKorma.html">Vegetable Korma </a>
+                </div>
+                <div class="dish1"> 
+                    <a href="RoganJosh.html">
+                        <img src="https://www.chewoutloud.com/wp-content/uploads/2022/08/Rogan-Josh-Vertical.jpg" 
+                             alt="Rogan Josh" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="RoganJosh.html">Rogan Josh</a>
+                </div>
+                </div>
+
+                <!--Biryanis-->
+
+                <div id="biryani">
+                <h3>Biryani</h3>    
+                <div class="dish2">
+                    <a href="HyderabadiChickenBiryani.html">
+                        <img src="https://yezzy4.com/wp-content/uploads/2023/02/Hyderabadi-chicken-Biryani.jpg"
+                             alt="Hyderabadi Chicken Biryani" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="HyderabadiChickenBiryani.html">Hyderabadi Chicken Biryani</a>
+                </div>
+                <div class="dish2">
+                    <a href="VegetableBiryani.html">
+                        <img src="https://www.dwarakaorganic.com/wp-content/uploads/2012/06/Veg-Biryani-Recipe.jpg"
+                             alt="Vegetable Biryani" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="VegetableBiryani.html">Vegetable Biryani</a>
+                </div>
+                <div class="dish2">
+                    <a href="MuttonBiryani.html">
+                        <img src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/MuttonBiryani.webp"
+                             alt="Mutton Biryani" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="MuttonBiryani.html">Mutton Biryani</a>
+                </div>
+                </div>
+
+                <!--Pasta-->
+
+                <div id="Pasta">
+                    <h3>Pasta</h3>
+                    <div class="dish3">
+                        <a href="ClassicAlfredoPasta.html">
+                            <img src="https://www.cookingclassy.com/wp-content/uploads/2019/09/alfredo-sauce-15.jpg"
+                                 alt="Classic Alfredo Pasta" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ClassicAlfredoPasta.html">Classic Alfredo Pasta</a>
+                    </div>
+                    <div class="dish3">
+                        <a href="PestoPasta.html">
+                            <img src="https://www.nourishandtempt.com/wp-content/uploads/2022/04/357B765F-F3DC-47E7-AEA2-58A1398F1419-scaled.jpg"
+                                 alt="Pesto Pasta" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="PestoPasta.html">Pesto Pasta</a>
+                    </div>
+                    <div class="dish3">
+                        <a href="CarbonaraPasta.html">
+                            <img src="https://www.savoryexperiments.com/wp-content/uploads/2019/01/Carbonara-3.jpg"
+                                 alt="Carbonara Pasta" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CarbonaraPasta.html">Carbonara Pasta</a>
+                    </div>
+                </div>
+
+                <!--Salads-->
+
+                <div id="Salad">
+                    <h3>Salads</h3>
+                    <div class="dish4">
+                        <a href="FruitSalad.html">
+                            <img src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_1460/k/Photo/Series/2019-06-snapshot-cooking-5-ingredient-fruit-salads/Snapshot_5-Ingredient-Fruit-Salads_melon_71005"
+                                 alt="Fruit Salad" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="FruitSalad.html">Fruit Salad</a>
+                    </div>
+                    <div class="dish4">
+                        <a href="GreekSalad.html">
+                            <img src="https://www.aheadofthyme.com/wp-content/uploads/2016/03/the-perfect-greek-salad-7.jpg"
+                                 alt="Greek Salad" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GreekSalad.html">Greek Salad</a>
+                    </div>
+                    <div class="dish4">
+                        <a href="QuinoaSalad.html">
+                            <img src="https://www.herwholesomekitchen.com/wp-content/uploads/2022/05/mediterranean-quinoa-salad-2.jpg"
+                                 alt="Quinoa Salad" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="QuinoaSalad.html">Quinoa Salad</a>
+                    </div>
+                </div>
+
+                <!--Breakfast-->
+
+                <div id="Breakfast">
+                  <h3>Breakfast</h3> 
+                  <div class="dish5">
+                    <a href="BananaOatmealPancakes.html">
+                        <img src="https://allthehealthythings.com/wp-content/uploads/2021/01/banana-oatmeal-pancakes-5.jpg"
+                             alt="Banana Oatmeal Pancakes" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="BananaOatmealPancakes.html">Banana Oatmeal Pancakes</a>
+                </div> 
+                <div class="dish5">
+                    <a href="Poha.html">
+                        <img src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"
+                             alt="Poha" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="Poha.html">Poha</a>
+                </div>
+                <div class="dish5">
+                    <a href="IdliwithCoconutChutney.html">
+                        <img src="https://madhurasrecipe.com/wp-content/uploads/2023/11/Winter-Idli-2.jpg"
+                             alt="Idli with Coconut Chutney" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="IdlywithCoconutChutney.html">Idli with Coconut Chutney</a>
+                </div>
+                </div>
+
+                <!--Mocktails-->
+                <div id="Mocktail">
+                    <h3>Mocktails</h3>
+                    <div class="dish6">
+                        <a href="WatermelonBasilFizz.html">
+                            <img src="https://bitsandbitesblog.com/wp-content/uploads/2023/05/cropped-watermelon-basil-cocktail-2-of-4.jpg"
+                                 alt="Watermelon Basil Fizz" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="WatermelonBasilFizz.html">Watermelon Basil Fizz</a>
+                    </div>
+                    <div class="dish6">
+                        <a href="MangoLassiMocktail.html">
+                            <img src="https://therecipecritic.com/wp-content/uploads/2023/01/mangolassi-750x1000.jpg"
+                                 alt="Mango Lassi Mocktail" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="MangoLassiMocktail.html">Mango Lassi Mocktail</a>
+                    </div>
+                    <div class="dish6">
+                        <a href="CoconutLimeSpritzer.html">
+                            <img src="https://ohsodelicioso.com/wp-content/uploads/2015/04/limespritzer-6-300x300.jpg"
+                                 alt="Coconut Lime Spritzer" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CoconutLimeSpritzer.html">Coconut Lime Spritzer</a>
+                    </div>
+                </div>
+
+                <!--Pizzas-->
+
+                <div id="Pizza">
+                    <h3>Pizza</h3>
+                    <div class="dish7">
+                        <a href="ClassicMargheritaPizza.html">
+                            <img src="https://images.eatsmarter.com/sites/default/files/styles/920x690/public/classic-margherita-pizza-493177.jpg"
+                                 alt="Classic Margherita Pizza" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ClassicMargheritaPizza.html">Classic Margherita Pizza</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="SweetCorn&PaneerPizza.html">
+                            <img src="https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/corn.f8baa08ad7f607f1de30f96bb9245b50.1.jpg"
+                                 alt="Sweet Corn & Paneer Pizza" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SweetCorn&PaneerPizza.html">Sweet Corn & Paneer Pizza</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="CheesyMushroomPizza.html">
+                            <img src="https://www.acouplecooks.com/wp-content/uploads/2019/06/Mushroom-Pizza-with-Herbs-001-800x1199.jpg"
+                                 alt="Cheesy Mushroom Pizza" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CheesyMushroomPizza.html">Cheesy Mushroom Pizza</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="SpicyTandooriChickenPizza.html">
+                            <img src="http://therollingstorm.com/wp-content/uploads/2015/03/IMG_4321.jpg"
+                                 alt="Spicy Tandoori Chicken Pizza" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SpicyTandooriChickenPizza.html">Spicy Tandoori Chicken Pizza</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="GarlicButterShrimpPizza.html">
+                            <img src="https://www.mysugarfreekitchen.com/wp-content/uploads/2023/03/garlic-prawn-pizza-new-1.jpg"
+                                 alt="Garlic Butter Shrimp Pizza" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GarlicButterShrimpPizza.html">Garlic Butter Shrimp Pizza</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="LoadedMeatFeastPizza.html">
+                            <img src="https://www.tastingtable.com/img/gallery/should-you-precook-sausage-before-putting-it-on-pizza/l-intro-1663772855.jpg"
+                                 alt="Loaded Meat Feast Pizza" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="LoadedMeatFeastPizza.html">Loaded Meat Feast Pizza</a>
+                    </div>
+                </div>
+
+                <!--Desserts-->
+
+                <div id="Dessert">
+                    <h3>Desserts</h3>
+                    <div class="dish8">
+                        <a href="ChocolateLavaCake.html">
+                            <img src="https://damnspicy.com/wp-content/uploads/2020/08/chocolate-lava-cakes-for-two-12-scaled.jpg"
+                                 alt="Chocolate Lava Cake" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ChocolateLavaCake.html">Chocolate Lava Cake</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="StrawberryCheesecake.html">
+                            <img src="https://sweetandsavorymeals.com/wp-content/uploads/2019/04/Strawberry-Cheesecake-Recipe-4.jpg"
+                                 alt="Strawberry Cheesecake" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="StrawberryCheesecake.html">Strawberry Cheesecake</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="BananaBread.html">
+                            <img src="https://preppykitchen.com/wp-content/uploads/2019/03/banana-bread-Feature-preppy-kitchen.jpg"
+                                 alt="Banana Bread" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="BananaBread.html">Banana Bread</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="CrèmeCaramel.html">
+                            <img src="https://images.lacucinaitaliana.it/wp-content/uploads/2018/02/22111628/cre%CC%80me-caramel.jpg"
+                                 alt="Crème Caramel" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CrèmeCaramel.html">Crème Caramel</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="Choco-PeanutButterBars.html">
+                            <img src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Chocolate-Peanut-Butter-Crispy-Bars_EXPS_HCCBZ20_189539_E05_08_4b-4.jpg"
+                                 alt="Choco-Peanut Butter Bars" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="Choco-PeanutButterBars.html">Choco-Peanut Butter Bars</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="Tiramisu.html">
+                            <img src="https://i.shgcdn.com/0c5d8e10-96a1-4043-94e1-ccca934ac6fc/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+                                 alt="Tiramisu" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="Tiramisu.html">Tiramisu</a>
+                    </div>
+                </div>
+
+                <!--Mexican-->
+
+                <div id="Mexican">
+                    <h3>Mexican</h3>
+                    <div class="dish9">
+                        <a href="ChickenTacos.html">
+                            <img src="https://www.wellplated.com/wp-content/uploads/2018/01/Pressure-Cooker-Mexican-Chicken.jpg"
+                                 alt="Chicken Tacos" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="chickenTacos.html">Chicken Tacos</a>
+                    </div>
+                    <div class="dish9">
+                        <a href="SpicyChickenTamales.html">
+                            <img src="https://img.freepik.com/premium-photo/spicy-chipotle-chicken-tamales_1036998-81028.jpg"
+                                 alt="Spicy Chicken Tamales" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SpicyChickenTamales.html">Spicy Chicken Tamales</a>
+                    </div>
+                    <div class="dish9">
+                        <a href="Quesadillas.html">
+                            <img src="https://www.inspiredtaste.net/wp-content/uploads/2021/03/Vegetable-Quesadilla-Recipe-1200.jpg"
+                                 alt="Quesadillas" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="Quesadillas.html">Quesadillas</a>
+                    </div>
+                </div>
+            </div> <!--End of Main Body-->
+            </div>
+            </div>
+    </main>
+    <script src="Recette1.js"></script> 
+    
+    <footer class="footer">
+    <p>© 2025 Recette - Your Complete Food & Health Companion</p>
+    <ul style="list-style: none; padding-left: 0;">
+        <li><a href="Portfolio1.html" target="_blank">Manaswini Saroja Reddy Karri</a></li>
+        <li><a href="portfolio4.html" target="_blank">Amrutha</a></li>
+        <li><a href="Portfolio3.html" target="_blank">Deekshitha</a></li>
+        <li><a href="Portfolio2.html" target="_blank">Hansika</a></li>
+    </ul>
+    <a href="Terms&Conditions.html" targe="_blank">Terms & Conditions</a>
+    <p>Stay healthy, eat well! 🌟</p>
+</footer>
+
+
+</body>
+</html>

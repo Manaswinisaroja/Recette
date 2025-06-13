@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レシピ - あなたの完全な食事と健康のコンパニオン</title>
+    
+    <!--T load files faster-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="Recette1.css">
+    <link rel="icon" type="image/x-icon" href="Favicon.png">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🍽️ レシピ</div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="#recipes">レシピ</a></li>
+                    <li><a href="#calculator">健康ツール</a></li>
+                    <li><a href="#planner">食事プラン</a></li>
+                    <li><a href="#nutrition">栄養</a></li>
+                </ul>
+            </nav>
+            <div class="search-container">
+                <input type="text" class="search-input" onkeyup="search_recipe()" placeholder="レシピを検索..." id="searchInput">
+                <button class="search-btn" onclick="searchRecipes()">🔍</button>
+            </div>
+            <div class="language-buttons">
+        <a href="Recette1.html" class="lang-btn">English</a>
+        <a href="RecetteFrench.html" class="lang-btn">Français</a>
+        <a href="RecetteJapnese.html" class="lang-btn">日本語</a>
+        <a href="RecetteTelugu.html" class="lang-btn">Telugu</a>
+        <a href="RecetteSpanish.html" class="lang-btn">Español</a>
+    </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="feature-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('recipes')">🍳 レシピ</button>
+                <button class="tab-btn" onclick="showTab('calculator')">📊 カロリー計算機</button>
+                <button class="tab-btn" onclick="showTab('planner')">📅 食事プランナー</button>
+                <button class="tab-btn" onclick="showTab('water')">💧 水分追跡</button>
+                <button class="tab-btn" onclick="showTab('shopping')">🛒 買い物リスト</button>
+                <button class="tab-btn" onclick="showTab('nutrition')">🥗 栄養情報</button>
+                <button class="tab-btn" onclick="window.open('India1.html')">インド</button>
+            </div>
+
+            <!-- カロリー計算タブ -->
+            <div id="calculator" class="tab-content">
+                <h2>📊 健康・フィットネス計算機</h2>
+                <br>
+                <div class="calculator-container">
+                    <div class="calc-section">
+                        <h3>🔥 1日のカロリー必要量</h3>
+                        <div class="form-group">
+                            <label>年齢:</label>
+                            <input type="number" id="age" placeholder="年齢を入力">
+                        </div>
+                        <div class="form-group">
+                            <label>性別:</label>
+                            <select id="gender">
+                                <option value="male">男性</option>
+                                <option value="female">女性</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>体重 (kg):</label>
+                            <input type="number" id="weight" placeholder="体重を入力">
+                        </div>
+                        <div class="form-group">
+                            <label>身長 (cm):</label>
+                            <input type="number" id="height" placeholder="身長を入力">
+                        </div>
+                        <div class="form-group">
+                            <label>活動レベル:</label>
+                            <select id="activity">
+                                <option value="1.2">座りがち</option>
+                                <option value="1.375">軽い活動</option>
+                                <option value="1.55">中程度の活動</option>
+                                <option value="1.725">非常に活発</option>
+                                <option value="1.9">極度に活発</option>
+                            </select>
+                        </div>
+                        <button class="calc-btn" onclick="calculateCalories()">カロリーを計算</button>
+                        <div id="calorieResult" class="result"></div>
+                    </div>
+
+                    <div class="calc-section">
+                        <h3>📏 BMI計算機</h3>
+                        <div class="form-group">
+                            <label>体重 (kg):</label>
+                            <input type="number" id="bmiWeight" placeholder="体重を入力">
+                        </div>
+                        <div class="form-group">
+                            <label>身長 (cm):</label>
+                            <input type="number" id="bmiHeight" placeholder="身長を入力">
+                        </div>
+                        <button class="calc-btn" onclick="calculateBMI()">BMIを計算</button>
+                        <div id="bmiResult" class="result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 食事プランナータブ -->
+            <div id="planner" class="tab-content">
+                <h2>📅 週間食事プランナー</h2>
+                <br>
+                <div class="meal-planner">
+                    <div class="day-card">
+                        <h3>月曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="monday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="monday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="monday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>火曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="tuesday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="tuesday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="tuesday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>水曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="wednesday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="wednesday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="wednesday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>木曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="thursday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="thursday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="thursday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>金曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="friday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="friday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="friday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>土曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="saturday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="saturday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="saturday" data-meal="dinner">
+                    </div>
+                    <div class="day-card">
+                        <h3>日曜日</h3>
+                        <input type="text" class="meal-input" placeholder="朝食" data-day="sunday" data-meal="breakfast">
+                        <input type="text" class="meal-input" placeholder="昼食" data-day="sunday" data-meal="lunch">
+                        <input type="text" class="meal-input" placeholder="夕食" data-day="sunday" data-meal="dinner">
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="calc-btn" onclick="saveMealPlan()" style="display: inline-block; width: auto;">食事プランを保存</button>
+                    <button class="calc-btn" onclick="clearMealPlan()" style="display: inline-block; width: auto; margin-left: 1rem;">すべてクリア</button>
+                </div>
+            </div>
+
+            <!-- 水分追跡タブ -->
+            <div id="water" class="tab-content">
+                <h2>💧 1日の水分摂取量追跡</h2>
+                <div class="water-tracker">
+                    <div class="water-visual">
+                        <div class="water-level" id="waterLevel"></div>
+                    </div>
+                    <h3 id="waterAmount">0 / 2000 ml</h3>
+                    <p>1日の目標: 2000ml (8杯)</p>
+                    <div class="water-controls">
+                        <button class="water-btn" onclick="addWater(250)">+ 250ml グラス</button>
+                        <button class="water-btn" onclick="addWater(500)">+ 500ml ボトル</button>
+                        <button class="water-btn" onclick="resetWater()">リセット</button>
+                    </div>
+                    <div id="waterProgress" class="result" style="background: rgba(33, 150, 243, 0.2); color: #1976D2;"></div>
+                </div>
+            </div>
+
+            <!-- 買い物リストタブ -->
+            <div id="shopping" class="tab-content">
+                <h2>🛒 栄養食品買い物リスト</h2>
+                <br>
+                <div style="margin-bottom: 2rem;">
+                    <input type="text" id="shoppingInput" placeholder="買い物リストにアイテムを追加..." style="padding: 1rem; border: 2px solid #ddd; border-radius: 10px; width: 70%; margin-right: 1rem;">
+                    <button onclick="addShoppingItem()" style="padding: 1rem 2rem; background: #764ba2; color: white; border: none; border-radius: 10px; cursor: pointer;">アイテムを追加</button>
+                </div>
+                <div class="shopping-list" id="shoppingList">
+                    <!-- 健康的な買い物アイテムが事前に入力 -->
+                </div>
+            </div>
+
+            <!-- 栄養情報タブ -->
+            <div id="nutrition" class="tab-content">
+                <h2>🥗 ビタミンとミネラルの情報</h2>
+                <br>
+                <div class="nutrition-grid">
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🍊</div>
+                        <h3>ビタミンC</h3>
+                        <p>免疫システム、コラーゲン合成、抗酸化保護に必須。</p>
+                        <strong>供給源:</strong> 柑橘類、ベリー、パプリカ、ブロッコリー
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥛</div>
+                        <h3>カルシウム</h3>
+                        <p>骨の健康、筋肉機能、神経伝達に重要。</p>
+                        <strong>供給源:</strong> 乳製品、葉物野菜、アーモンド、イワシ
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥩</div>
+                        <h3>鉄分</h3>
+                        <p>酸素輸送とエネルギー生産に必須。</p>
+                        <strong>供給源:</strong> 赤身肉、ほうれん草、レンズ豆、ダークチョコレート
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🌞</div>
+                        <h3>ビタミンD</h3>
+                        <p>骨の健康と免疫機能に重要。</p>
+                        <strong>供給源:</strong> 日光、脂肪魚、強化食品、卵黄
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🍌</div>
+                        <h3>カリウム</h3>
+                        <p>血圧を調節し、心臓の健康をサポート。</p>
+                        <strong>供給源:</strong> バナナ、アボカド、ジャガイモ、豆類
+                    </div>
+                    <div class="nutrition-card">
+                        <div class="nutrition-icon">🥜</div>
+                        <h3>マグネシウム</h3>
+                        <p>筋肉と神経機能、血糖コントロールをサポート。</p>
+                        <strong>供給源:</strong> ナッツ、種子、全粒穀物、濃い葉物野菜
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- レシピタブ -->
+            <div id="recipes" class="tab-content active">
+                <h2>🌟 おすすめレシピ</h2>
+                <div class="recipe-grid" id="recipeGrid">
+        <div id="MainBody">
+                <!--メインコース-->
+                <div id="maincourse">
+                    <h3>メインコース</h3>
+                <div class="dish1 rec">
+                    <a href="ButterChicken.html">
+                        <img src="https://falasteenifoodie.com/wp-content/uploads/2023/01/Butter-Chicken-Recipe-1536x1293.jpeg" 
+                             alt="バターチキン" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="ButterChicken.html">バターチキン</a>
+                </div>
+                <div class="dish1 rec">
+                    <a href="PannerTikkaMasala.html">
+                        <img src="https://i0.wp.com/cookingfromheart.com/wp-content/uploads/2017/03/Paneer-Tikka-Masala-4.jpg?fit=1024%2C683&ssl=1" 
+                             alt="パニールティッカマサラ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="PannerTikkaMasala.html">パニールティッカマサラ</a>
+                </div>
+                <div class="dish1">
+                    <a href="LentilCurry.html">
+                        <img src="https://lovingitvegan.com/wp-content/uploads/2019/01/Vegan-Lentil-Curry-11.jpg" 
+                             alt="レンズ豆カレー" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="LentilCurry.html">レンズ豆カレー</a>
+                </div>
+                <div class="dish1">
+                    <a href="ChickPeaMasala.html">
+                        <img src="https://silkroadrecipes.com/wp-content/uploads/2020/07/Chickpea-Masala-square.jpg" 
+                             alt="ひよこ豆マサラ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="ChickPeaMasala.html">ひよこ豆マサラ</a>
+                </div>
+                <div class="dish1"> 
+                    <a href="RoganJosh.html">
+                        <img src="https://www.chewoutloud.com/wp-content/uploads/2022/08/Rogan-Josh-Vertical.jpg" 
+                             alt="ローガンジョシュ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="RoganJosh.html">ローガンジョシュ</a>
+                </div>
+                <div class="dish1">
+                    <a href="VegetableKorma.html">
+                        <img src="https://mydaintykitchen.com/wp-content/uploads/2020/04/veg-korma.jpg"
+                             alt="野菜コルマ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="VegetableKorma.html">野菜コルマ</a>
+                </div>
+                </div>
+
+                <!--ビリヤニ-->
+
+                <div id="biryani">
+                <h3>ビリヤニ</h3>    
+                <div class="dish2">
+                    <a href="HyderabadiChickenBiryani.html">
+                        <img src="https://yezzy4.com/wp-content/uploads/2023/02/Hyderabadi-chicken-Biryani.jpg"
+                             alt="ハイデラバディチキンビリヤニ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="HyderabadiChickenBiryani.html">ハイデラバディチキンビリヤニ</a>
+                </div>
+                <div class="dish2">
+                    <a href="VegetableBiryani.html">
+                        <img src="https://www.dwarakaorganic.com/wp-content/uploads/2012/06/Veg-Biryani-Recipe.jpg"
+                             alt="野菜ビリヤニ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="VegetableBiryani.html">野菜ビリヤニ</a>
+                </div>
+                <div class="dish2">
+                    <a href="MuttonBiryani.html">
+                        <img src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/MuttonBiryani.webp"
+                             alt="マトンビリヤニ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="MuttonBiryani.html">マトンビリヤニ</a>
+                </div>
+                </div>
+
+                <!--パスタ-->
+
+                <div id="Pasta">
+                    <h3>パスタ</h3>
+                    <div class="dish3">
+                        <a href="ClassicAlfredoPasta.html">
+                            <img src="https://www.cookingclassy.com/wp-content/uploads/2019/09/alfredo-sauce-15.jpg"
+                                 alt="クラシックアルフレドパスタ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ClassicAlfredoPasta.html">クラシックアルフレドパスタ</a>
+                    </div>
+                    <div class="dish3">
+                        <a href="PestoPasta.html">
+                            <img src="https://www.nourishandtempt.com/wp-content/uploads/2022/04/357B765F-F3DC-47E7-AEA2-58A1398F1419-scaled.jpg"
+                                 alt="ペストパスタ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="PestoPasta.html">ペストパスタ</a>
+                    </div>
+                    <div class="dish3">
+                        <a href="CarbonaraPasta.html">
+                            <img src="https://www.savoryexperiments.com/wp-content/uploads/2019/01/Carbonara-3.jpg"
+                                 alt="カルボナーラパスタ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CarbonaraPasta.html">カルボナーラパスタ</a>
+                    </div>
+                </div>
+
+                <!--サラダ-->
+
+                <div id="Salad">
+                    <h3>サラダ</h3>
+                    <div class="dish4">
+                        <a href="FruitSalad.html">
+                            <img src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_1460/k/Photo/Series/2019-06-snapshot-cooking-5-ingredient-fruit-salads/Snapshot_5-Ingredient-Fruit-Salads_melon_71005"
+                                 alt="フルーツサラダ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="FruitSalad.html">フルーツサラダ</a>
+                    </div>
+                    <div class="dish4">
+                        <a href="GreekSalad.html">
+                            <img src="https://www.aheadofthyme.com/wp-content/uploads/2016/03/the-perfect-greek-salad-7.jpg"
+                                 alt="ギリシャサラダ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GreekSalad.html">ギリシャサラダ</a>
+                    </div>
+                    <div class="dish4">
+                        <a href="QuinoaSalad.html">
+                            <img src="https://www.herwholesomekitchen.com/wp-content/uploads/2022/05/mediterranean-quinoa-salad-2.jpg"
+                                 alt="キヌアサラダ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="QuinoaSalad.html">キヌアサラダ</a>
+                    </div>
+                </div>
+
+                <!--朝食-->
+
+                <div id="Breakfast">
+                  <h3>朝食</h3> 
+                  <div class="dish5">
+                    <a href="BananaOatmealPancakes.html">
+                        <img src="https://allthehealthythings.com/wp-content/uploads/2021/01/banana-oatmeal-pancakes-5.jpg"
+                             alt="バナナオートミールパンケーキ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="BananaOatmealPancakes.html">バナナオートミールパンケーキ</a>
+                </div> 
+                <div class="dish5">
+                    <a href="Poha.html">
+                        <img src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"
+                             alt="ポハ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="Poha.html">ポハ</a>
+                </div>
+                <div class="dish5">
+                    <a href="IdliwithCoconutChutney.html">
+                        <img src="https://madhurasrecipe.com/wp-content/uploads/2023/11/Winter-Idli-2.jpg"
+                             alt="イドリとココナッツチャツネ" width="25%" height="300">
+                    </a>
+                    <br>
+                    <a href="IdliwithCoconutChutney.html">イドリとココナッツチャツネ</a>
+                </div>
+                </div>
+
+                <!--モクテル-->
+
+                <div id="Mocktail">
+                    <h3>モクテル</h3>
+                    <div class="dish6">
+                        <a href="WatermelonBasilFizz.html">
+                            <img src="https://bitsandbitesblog.com/wp-content/uploads/2023/05/cropped-watermelon-basil-cocktail-2-of-4.jpg"
+                                 alt="スイカバジルフィズ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="WatermelonBasilFizz.html">スイカバジルフィズ</a>
+                    </div>
+                    <div class="dish6">
+                        <a href="MangoLassiMocktail.html">
+                            <img src="https://therecipecritic.com/wp-content/uploads/2023/01/mangolassi-750x1000.jpg"
+                                 alt="マンゴーラッシーモクテル" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="MangoLassiMocktail.html">マンゴーラッシーモクテル</a>
+                    </div>
+                    <div class="dish6">
+                        <a href="CoconutLimeSpritzer.html">
+                            <img src="https://ohsodelicioso.com/wp-content/uploads/2015/04/limespritzer-6-300x300.jpg"
+                                 alt="ココナッツライムスプリッツァー" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CoconutLimeSpritzer.html">ココナッツライムスプリッツァー</a>
+                    </div>
+                </div>
+
+                <!--ピザ-->
+
+                <div id="Pizza">
+                    <h3>ピザ</h3>
+                    <div class="dish7">
+                        <a href="ClassicMargheritaPizza.html">
+                            <img src="https://images.eatsmarter.com/sites/default/files/styles/920x690/public/classic-margherita-pizza-493177.jpg"
+                                 alt="クラシックマルゲリータピザ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ClassicMargheritaPizza.html">クラシックマルゲリータピザ</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="SweetCorn&PaneerPizza.html">
+                            <img src="https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/corn.f8baa08ad7f607f1de30f96bb9245b50.1.jpg"
+                                 alt="スイートコーン＆パニールピザ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SweetCorn&PaneerPizza.html">スイートコーン＆パニールピザ</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="CheesyMushroomPizza.html">
+                            <img src="https://www.acouplecooks.com/wp-content/uploads/2019/06/Mushroom-Pizza-with-Herbs-001-800x1199.jpg"
+                                 alt="チーズィーマッシュルームピザ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CheesyMushroomPizza.html">チーズィーマッシュルームピザ</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="SpicyTandooriChickenPizza.html">
+                            <img src="http://therollingstorm.com/wp-content/uploads/2015/03/IMG_4321.jpg"
+                                 alt="スパイシータンドリーチキンピザ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SpicyTandooriChickenPizza.html">スパイシータンドリーチキンピザ</a>
+                    </div>
+                    <div class="dish7">
+                        <a href="GarlicButterShrimpPizza.html">
+                            <img src="https://www.mysugarfreekitchen.com/wp-content/uploads/2023/03/garlic-prawn-pizza-new-1.jpg"
+                                 alt="ガーリックバターシュリンプピザ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GarlicButterShrimpPizza.html">ガーリックバ<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レシピ続き</title>
+</head>
+<body>
+                        <a href="GarlicButterShrimpPizza.html">ガーリックバターシュリンプピザ</a>
+                    </div>
+                </div>
+
+                <!--デザート-->
+
+                <div id="Dessert">
+                    <h3>デザート</h3>
+                    <div class="dish8">
+                        <a href="ChocolateLavaCake.html">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2019/01/Chocolate-Lava-Cake_7.jpg"
+                                 alt="チョコレートラバケーキ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ChocolateLavaCake.html">チョコレートラバケーキ</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="Tiramisu.html">
+                            <img src="https://www.loveandlemons.com/wp-content/uploads/2021/07/tiramisu-recipe.jpg"
+                                 alt="ティラミス" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="Tiramisu.html">ティラミス</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="CheeseCake.html">
+                            <img src="https://sugarspunrun.com/wp-content/uploads/2019/01/Best-Cheesecake-Recipe-2-1-of-1-4.jpg"
+                                 alt="チーズケーキ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="CheeseCake.html">チーズケーキ</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="GulabjamunRecipe.html">
+                            <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2015/11/gulab-jamun-recipe.jpg"
+                                 alt="グラブジャムン" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GulabjamunRecipe.html">グラブジャムン</a>
+                    </div>
+                    <div class="dish8">
+                        <a href="RasmalaiRecipe.html">
+                            <img src="https://www.cookwithmanali.com/wp-content/uploads/2020/07/Rasmalai.jpg"
+                                 alt="ラスマライ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="RasmalaiRecipe.html">ラスマライ</a>
+                    </div>
+                </div>
+
+                <!--サンドイッチ-->
+
+                <div id="Sandwich">
+                    <h3>サンドイッチ</h3>
+                    <div class="dish9">
+                        <a href="GrilledChickenSandwich.html">
+                            <img src="https://www.themediterraneandish.com/wp-content/uploads/2020/08/grilled-chicken-sandwich-recipe-7.jpg"
+                                 alt="グリルドチキンサンドイッチ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="GrilledChickenSandwich.html">グリルドチキンサンドイッチ</a>
+                    </div>
+                    <div class="dish9">
+                        <a href="VeggieClubSandwich.html">
+                            <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/03/veg-club-sandwich-1.jpg"
+                                 alt="ベジークラブサンドイッチ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="VeggieClubSandwich.html">ベジークラブサンドイッチ</a>
+                    </div>
+                    <div class="dish9">
+                        <a href="TunaMeltSandwich.html">
+                            <img src="https://www.simplyrecipes.com/thmb/oKDPVBWgLYB8V_QTr-bMvXJXQZU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Simply-Recipes-Tuna-Melt-LEAD-01-2b4e2dc8f8d1492e8f7b7ddea0c5c5ad.jpg"
+                                 alt="ツナメルトサンドイッチ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="TunaMeltSandwich.html">ツナメルトサンドイッチ</a>
+                    </div>
+                </div>
+
+                <!--スープ-->
+
+                <div id="Soup">
+                    <h3>スープ</h3>
+                    <div class="dish10">
+                        <a href="TomatoBasilSoup.html">
+                            <img src="https://www.loveandlemons.com/wp-content/uploads/2021/09/tomato-soup-recipe.jpg"
+                                 alt="トマトバジルスープ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="TomatoBasilSoup.html">トマトバジルスープ</a>
+                    </div>
+                    <div class="dish10">
+                        <a href="ChickenNoodleSoup.html">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2018/10/Chicken-Noodle-Soup_4.jpg"
+                                 alt="チキンヌードルスープ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ChickenNoodleSoup.html">チキンヌードルスープ</a>
+                    </div>
+                    <div class="dish10">
+                        <a href="MinestroneSoup.html">
+                            <img src="https://www.loveandlemons.com/wp-content/uploads/2019/11/minestrone-soup-recipe.jpg"
+                                 alt="ミネストローネスープ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="MinestroneSoup.html">ミネストローネスープ</a>
+                    </div>
+                </div>
+
+                <!--アペタイザー-->
+
+                <div id="Appetizer">
+                    <h3>アペタイザー</h3>
+                    <div class="dish11">
+                        <a href="SamosaRecipe.html">
+                            <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/12/samosa-recipe.jpg"
+                                 alt="サモサ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SamosaRecipe.html">サモサ</a>
+                    </div>
+                    <div class="dish11">
+                        <a href="PakodaRecipe.html">
+                            <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2022/01/pakoda-recipe.jpg"
+                                 alt="パコダ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="PakodaRecipe.html">パコダ</a>
+                    </div>
+                    <div class="dish11">
+                        <a href="SpringRolls.html">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2019/01/Spring-Rolls_9.jpg"
+                                 alt="スプリングロール" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="SpringRolls.html">スプリングロール</a>
+                    </div>
+                </div>
+
+                <!--アジア料理-->
+
+                <div id="Asian">
+                    <h3>アジア料理</h3>
+                    <div class="dish12">
+                        <a href="PadThai.html">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2020/01/Pad-Thai_9.jpg"
+                                 alt="パッタイ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="PadThai.html">パッタイ</a>
+                    </div>
+                    <div class="dish12">
+                        <a href="ChickenTeriyaki.html">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2016/02/Chicken-Teriyaki_7.jpg"
+                                 alt="チキンテリヤキ" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="ChickenTeriyaki.html">チキンテリヤキ</a>
+                    </div>
+                    <div class="dish12">
+                        <a href="FriedRice.html">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2020/03/Fried-Rice_9.jpg"
+                                 alt="チャーハン" width="25%" height="300">
+                        </a>
+                        <br>
+                        <a href="FriedRice.html">チャーハン</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 レシピ - あなたの完全な食事と健康のコンパニオン</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

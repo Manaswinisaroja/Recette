@@ -1,0 +1,142 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #667eea;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2.5rem;
+    color: #667eea;
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Styles */
+#img img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Procedure Styles */
+#process {
+    flex: 1;
+    margin-left: 20px;
+}
+
+#process h3 {
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+#process ol {
+    margin-left: 20px;
+}
+
+#process h4 {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #764ba2;
+}
+
+/* Bottom Container */
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(123, 123, 233, 0.1);
+}
+
+/* Nutrition Table */
+.nutrition {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.nutrition h2 {
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.nutrition table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.nutrition th, .nutrition td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+
+.nutrition th {
+    background-color: #e9ecef;
+}
+
+/* Ingredients List */
+.ingredients {
+    flex: 1;
+}
+
+.ingredients h2 {
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.ingredients ul {
+    list-style-type: square;
+    margin-left: 20px;
+}
+
+.ingredients li {
+    margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container, .bottom-container {
+        flex-direction: column;
+    }
+
+    #process {
+        margin-left: 0;
+    }
+
+    .bottom-container {
+        flex-direction: column;
+    }
+
+    .nutrition, .ingredients {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}

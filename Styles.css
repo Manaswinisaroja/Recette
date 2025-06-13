@@ -1,0 +1,115 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+/* Header */
+#Header {
+    background-color: #6a0dad;
+    padding: 15px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Navbar */
+#navBar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+#navBar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s ease-in-out;
+}
+
+#navBar ul li a:hover {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+/* Search Bar */
+#Searchbar {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#Searchbar input {
+    width: 50%;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#Searchbar input:focus {
+    border-color: #6a0dad;
+    outline: none;
+    box-shadow: 0px 3px 15px rgba(106, 13, 173, 0.3);
+}
+
+/* Centered Category Headings */
+#maincourse h3, #biryani h3, #Pasta h3, #Salad h3, 
+#Breakfast h3, #Mocktail h3, #Pizza h3, #Dessert h3 {
+    text-align: center;
+    color: #6a0dad;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Recipe Category Styling */
+#maincourse, #biryani, #Pasta, #Salad, 
+#Breakfast, #Mocktail, #Pizza, #Dessert {
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Align Images Side by Side */
+.dish1, .dish2, .dish3, .dish4, .dish5, .dish6, .dish7, .dish8 {
+    display: inline-block;
+    width: 250px;
+    text-align: center;
+    margin: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dish1:hover, .dish2:hover, .dish3:hover, .dish4:hover, 
+.dish5:hover, .dish6:hover, .dish7:hover, .dish8:hover {
+    transform: scale(1.05);
+}
+
+.dish1 img, .dish2 img, .dish3 img, .dish4 img,
+.dish5 img, .dish6 img, .dish7 img, .dish8 img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Footer */
+#footer {
+    text-align: center;
+    background-color: #6a0dad;
+    color: white;
+    padding: 15px;
+    margin-top: 30px;
+    font-size: 16px;
+}
